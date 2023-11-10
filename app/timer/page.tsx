@@ -3,35 +3,58 @@ import React, { useState, useEffect } from 'react';
 import { listen } from '@tauri-apps/api/event';
 
 const TimerPage: React.FC = () => {
-    const [time, setTime] = useState<number>(parseInt(window.localStorage.getItem('time') || '0'));
-    const [timerOn, setTimerOn] = useState<boolean>(window.localStorage.getItem('timerOn') === 'true');
-    const [isCountdown, setIsCountdown] = useState<boolean>(window.localStorage.getItem('isCountdown') === 'true');
-    const [colorHex, setColorHex] = useState<string>(window.localStorage.getItem('colorHex') || "#0000ff");
-    const [textColorHex, setTextColorHex] = useState<string>(window.localStorage.getItem('textColorHex') || "#000000");
-    const [opacity, setOpacity] = useState<number>(parseFloat(window.localStorage.getItem('opacity') || '1'));
+    const [time, setTime] = useState<number>(0);
+    const [timerOn, setTimerOn] = useState<boolean>(false);
+    const [isCountdown, setIsCountdown] = useState<boolean>(false);
+    const [colorHex, setColorHex] = useState<string>("#0000ff");
+    const [textColorHex, setTextColorHex] = useState<string>("#000000");
+    const [opacity, setOpacity] = useState<number>(1);
 
     useEffect(() => {
-        window.localStorage.setItem('time', time.toString());
+        if (typeof window !== 'undefined') {
+            setTime(parseInt(window.localStorage.getItem('time') || '0'));
+            setTimerOn(window.localStorage.getItem('timerOn') === 'true');
+            setIsCountdown(window.localStorage.getItem('isCountdown') === 'true');
+            setColorHex(window.localStorage.getItem('colorHex') || "#0000ff");
+            setTextColorHex(window.localStorage.getItem('textColorHex') || "#000000");
+            setOpacity(parseFloat(window.localStorage.getItem('opacity') || '1'));
+        }
+    }, []);
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            window.localStorage.setItem('time', time.toString());
+        }
     }, [time]);
 
     useEffect(() => {
-        window.localStorage.setItem('timerOn', timerOn.toString());
+        if (typeof window !== 'undefined') {
+            window.localStorage.setItem('timerOn', timerOn.toString());
+        }
     }, [timerOn]);
 
     useEffect(() => {
-        window.localStorage.setItem('isCountdown', isCountdown.toString());
+        if (typeof window !== 'undefined') {
+            window.localStorage.setItem('isCountdown', isCountdown.toString());
+        }
     }, [isCountdown]);
 
     useEffect(() => {
-        window.localStorage.setItem('colorHex', colorHex);
+        if (typeof window !== 'undefined') {
+            window.localStorage.setItem('colorHex', colorHex);
+        }
     }, [colorHex]);
 
     useEffect(() => {
-        window.localStorage.setItem('textColorHex', textColorHex);
+        if (typeof window !== 'undefined') {
+            window.localStorage.setItem('textColorHex', textColorHex);
+        }
     }, [textColorHex]);
 
     useEffect(() => {
-        window.localStorage.setItem('opacity', opacity.toString());
+        if (typeof window !== 'undefined') {
+            window.localStorage.setItem('opacity', opacity.toString());
+        }
     }, [opacity]);
 
     useEffect(() => {

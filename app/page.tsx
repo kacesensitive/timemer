@@ -6,28 +6,39 @@ import { Slider } from "@/components/ui/slider";
 import { IoPlay, IoStop, IoRefresh } from 'react-icons/io5';
 import { MdOutlineTimer } from 'react-icons/md';
 
-interface TimerControlProps {
-  onStart: () => void;
-  onStop: () => void;
-  onReset: () => void;
-  onSetTime: (time: number) => void;
-}
-
-const TimerControlPanel: React.FC<TimerControlProps> = () => {
-  const [inputTime, setInputTime] = useState<string>(window.localStorage.getItem('inputTime') || '');
-  const [color, setColor] = useState<string>(window.localStorage.getItem('color') || "#0000ff");
-  const [textColor, setTextColor] = useState<string>(window.localStorage.getItem('textColor') || "#000000");
+const TimerControlPanel: React.FC<any> = () => {
+  const [inputTime, setInputTime] = useState<string>('');
+  const [color, setColor] = useState<string>("#0000ff");
+  const [textColor, setTextColor] = useState<string>("#000000");
 
   useEffect(() => {
-    window.localStorage.setItem('inputTime', inputTime);
+    if (typeof window !== 'undefined') {
+      const storedInputTime = window.localStorage.getItem('inputTime') || '';
+      const storedColor = window.localStorage.getItem('color') || "#0000ff";
+      const storedTextColor = window.localStorage.getItem('textColor') || "#000000";
+
+      setInputTime(storedInputTime);
+      setColor(storedColor);
+      setTextColor(storedTextColor);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem('inputTime', inputTime);
+    }
   }, [inputTime]);
 
   useEffect(() => {
-    window.localStorage.setItem('color', color);
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem('color', color);
+    }
   }, [color]);
 
   useEffect(() => {
-    window.localStorage.setItem('textColor', textColor);
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem('textColor', textColor);
+    }
   }, [textColor]);
 
   function onStartClick() {
