@@ -2,6 +2,7 @@
 # Timemer
 
 ![Timemer](/public/time.png)
+![SC](/public/sc.png)
 
 A [Next.js](https://nextjs.org/) / [Tauri](https://tauri.app/) desktop application that creates an always on top timer or countdown.
   
